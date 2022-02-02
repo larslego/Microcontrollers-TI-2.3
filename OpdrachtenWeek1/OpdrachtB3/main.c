@@ -1,18 +1,6 @@
 /*
- * OpdrachtB3.c
+ * main.c
  *
- * Created: 2/2/2022 12:35:50 PM
- * Author : berke
+ * Created: 2-2-2022 12:40:31
+ *  Author: Larsl
  */ 
-
-#include <avr/io.h>
-
-
-int main(void)
-{
-    /* Replace with your application code */
-    while (1) 
-    {
-    }
-}
-
