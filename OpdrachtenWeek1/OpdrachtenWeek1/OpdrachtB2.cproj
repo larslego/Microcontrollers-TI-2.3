@@ -13,7 +13,7 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <AssemblyName>OpdrachtenWeek1</AssemblyName>
-    <Name>OpdrachtenWeek1</Name>
+    <Name>OpdrachtB2</Name>
     <RootNamespace>OpdrachtenWeek1</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
