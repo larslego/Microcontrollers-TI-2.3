@@ -1,9 +1,10 @@
 /*
- * OpdrachtB4.c
+ * OpdrachtB5.c
  *
- * Created: 2/2/2022 12:40:26 PM
- * Author : berke
+ * Created: 2-2-2022 13:45:48
+ * Author : Larsl
  */ 
+
 
 #define F_CPU 8e6
 
@@ -16,20 +17,22 @@ void wait(int ms) {
 	}
 }
 
-int main(void) {
+int main(void)
+{
 	DDRD = 0b11111111;		// All pins PORTD are set to output
 
-    while (1) {
+	while (1) {
 		for (int i = 0; i < 8; i++) {
+			// Enable new leading LED
 			wait(50);
-			PORTD = 0x01 << i;
+			PORTD |= 0x01 << i;
 		}
-		
 		for (int i = 0; i < 8; i++) {
+			// Disable trailing LED
 			wait(50);
-			PORTD = 0x10 >> i;
+			PORTD &= ~(0x01 << i);
 		}
-    }
+	}
 	
 	return 1;
 }

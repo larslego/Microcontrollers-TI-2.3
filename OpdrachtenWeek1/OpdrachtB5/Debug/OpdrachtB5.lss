@@ -1,31 +1,31 @@
 
-OpdrachtB2.elf:     file format elf32-avr
+OpdrachtB5.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000012e  2**0
+  0 .data         00000000  00800100  00800100  00000170  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000000da  00000000  00000000  00000054  2**1
+  1 .text         0000011c  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  0000012e  2**0
+  2 .comment      00000030  00000000  00000000  00000170  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000160  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001a0  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000028  00000000  00000000  0000019c  2**0
+  4 .debug_aranges 00000028  00000000  00000000  000001dc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000008fc  00000000  00000000  000001c4  2**0
+  5 .debug_info   0000092b  00000000  00000000  00000204  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000830  00000000  00000000  00000ac0  2**0
+  6 .debug_abbrev 0000083d  00000000  00000000  00000b2f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000002d3  00000000  00000000  000012f0  2**0
+  7 .debug_line   00000304  00000000  00000000  0000136c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000034  00000000  00000000  000015c4  2**2
+  8 .debug_frame  00000034  00000000  00000000  00001670  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000447  00000000  00000000  000015f8  2**0
+  9 .debug_str    00000442  00000000  00000000  000016a4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000006a  00000000  00000000  00001a3f  2**0
+ 10 .debug_loc    0000008e  00000000  00000000  00001ae6  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000018  00000000  00000000  00001aa9  2**0
+ 11 .debug_ranges 00000018  00000000  00000000  00001b74  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -110,17 +110,17 @@ Disassembly of section .text:
   94:	de bf       	out	0x3e, r29	; 62
   96:	cd bf       	out	0x3d, r28	; 61
   98:	11 d0       	rcall	.+34     	; 0xbc <main>
-  9a:	1d c0       	rjmp	.+58     	; 0xd6 <_exit>
+  9a:	3e c0       	rjmp	.+124    	; 0x118 <_exit>
 
 0000009c <__bad_interrupt>:
   9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
 
 0000009e <wait>:
-notes:			Busy wait, not very accurate. Make sure (external)
-				clock value is set. This is used by _delay_ms inside
-				util/delay.h
-*******************************************************************/
-{
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+void wait(int ms) {
 	for (int i=0; i<ms; i++) {
   9e:	20 e0       	ldi	r18, 0x00	; 0
   a0:	30 e0       	ldi	r19, 0x00	; 0
@@ -142,40 +142,90 @@ notes:			Busy wait, not very accurate. Make sure (external)
   b4:	28 17       	cp	r18, r24
   b6:	39 07       	cpc	r19, r25
   b8:	ac f3       	brlt	.-22     	; 0xa4 <wait+0x6>
-		_delay_ms( 1 );		// library function (max 30 ms at 8MHz)
+		_delay_ms(1);		// library function (max 30 ms at 8MHz)
 	}
 }
   ba:	08 95       	ret
 
 000000bc <main>:
-inputs:			
-outputs:	
-notes:			Looping forever, flipping bits on PORTD
-*******************************************************************/
 
-	DDRD = 0b11111111;			// All pins PORTD are set to output 
+int main(void)
+{
+	DDRD = 0b11111111;		// All pins PORTD are set to output
   bc:	8f ef       	ldi	r24, 0xFF	; 255
   be:	81 bb       	out	0x11, r24	; 17
-	
+
 	while (1) {
-		PORTD =0x80;			// Write 10000000b PORTD
-  c0:	80 e8       	ldi	r24, 0x80	; 128
-  c2:	82 bb       	out	0x12, r24	; 18
-		wait( 500 );				
-  c4:	84 ef       	ldi	r24, 0xF4	; 244
-  c6:	91 e0       	ldi	r25, 0x01	; 1
-  c8:	ea df       	rcall	.-44     	; 0x9e <wait>
-		PORTD = 0x40;			// Write 01000000b PORTD
-  ca:	80 e4       	ldi	r24, 0x40	; 64
-  cc:	82 bb       	out	0x12, r24	; 18
-		wait( 500 );				
-  ce:	84 ef       	ldi	r24, 0xF4	; 244
-  d0:	91 e0       	ldi	r25, 0x01	; 1
-  d2:	e5 df       	rcall	.-54     	; 0x9e <wait>
-  d4:	f5 cf       	rjmp	.-22     	; 0xc0 <main+0x4>
+		for (int i = 0; i < 8; i++) {
+  c0:	c0 e0       	ldi	r28, 0x00	; 0
+  c2:	d0 e0       	ldi	r29, 0x00	; 0
+  c4:	0f c0       	rjmp	.+30     	; 0xe4 <main+0x28>
+			// Enable new leading LED
+			wait(50);
+  c6:	82 e3       	ldi	r24, 0x32	; 50
+  c8:	90 e0       	ldi	r25, 0x00	; 0
+  ca:	e9 df       	rcall	.-46     	; 0x9e <wait>
+			PORTD |= 0x01 << i;
+  cc:	22 b3       	in	r18, 0x12	; 18
+  ce:	81 e0       	ldi	r24, 0x01	; 1
+  d0:	90 e0       	ldi	r25, 0x00	; 0
+  d2:	0c 2e       	mov	r0, r28
+  d4:	02 c0       	rjmp	.+4      	; 0xda <main+0x1e>
+  d6:	88 0f       	add	r24, r24
+  d8:	99 1f       	adc	r25, r25
+  da:	0a 94       	dec	r0
+  dc:	e2 f7       	brpl	.-8      	; 0xd6 <main+0x1a>
+  de:	82 2b       	or	r24, r18
+  e0:	82 bb       	out	0x12, r24	; 18
+int main(void)
+{
+	DDRD = 0b11111111;		// All pins PORTD are set to output
 
-000000d6 <_exit>:
-  d6:	f8 94       	cli
+	while (1) {
+		for (int i = 0; i < 8; i++) {
+  e2:	21 96       	adiw	r28, 0x01	; 1
+  e4:	c8 30       	cpi	r28, 0x08	; 8
+  e6:	d1 05       	cpc	r29, r1
+  e8:	74 f3       	brlt	.-36     	; 0xc6 <main+0xa>
+  ea:	c0 e0       	ldi	r28, 0x00	; 0
+  ec:	d0 e0       	ldi	r29, 0x00	; 0
+  ee:	10 c0       	rjmp	.+32     	; 0x110 <main+0x54>
+			wait(50);
+			PORTD |= 0x01 << i;
+		}
+		for (int i = 0; i < 8; i++) {
+			// Disable trailing LED
+			wait(50);
+  f0:	82 e3       	ldi	r24, 0x32	; 50
+  f2:	90 e0       	ldi	r25, 0x00	; 0
+  f4:	d4 df       	rcall	.-88     	; 0x9e <wait>
+			PORTD &= ~(0x01 << i);
+  f6:	22 b3       	in	r18, 0x12	; 18
+  f8:	81 e0       	ldi	r24, 0x01	; 1
+  fa:	90 e0       	ldi	r25, 0x00	; 0
+  fc:	0c 2e       	mov	r0, r28
+  fe:	02 c0       	rjmp	.+4      	; 0x104 <main+0x48>
+ 100:	88 0f       	add	r24, r24
+ 102:	99 1f       	adc	r25, r25
+ 104:	0a 94       	dec	r0
+ 106:	e2 f7       	brpl	.-8      	; 0x100 <main+0x44>
+ 108:	80 95       	com	r24
+ 10a:	82 23       	and	r24, r18
+ 10c:	82 bb       	out	0x12, r24	; 18
+		for (int i = 0; i < 8; i++) {
+			// Enable new leading LED
+			wait(50);
+			PORTD |= 0x01 << i;
+		}
+		for (int i = 0; i < 8; i++) {
+ 10e:	21 96       	adiw	r28, 0x01	; 1
+ 110:	c8 30       	cpi	r28, 0x08	; 8
+ 112:	d1 05       	cpc	r29, r1
+ 114:	6c f3       	brlt	.-38     	; 0xf0 <main+0x34>
+ 116:	d4 cf       	rjmp	.-88     	; 0xc0 <main+0x4>
 
-000000d8 <__stop_program>:
-  d8:	ff cf       	rjmp	.-2      	; 0xd8 <__stop_program>
+00000118 <_exit>:
+ 118:	f8 94       	cli
+
+0000011a <__stop_program>:
+ 11a:	ff cf       	rjmp	.-2      	; 0x11a <__stop_program>
