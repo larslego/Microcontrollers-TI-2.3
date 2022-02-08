@@ -54,12 +54,16 @@ void change_active(ENUM_SWITCHES change){
 
 //Prints out active state
 void print_active(){
+	PORTC = 0x00;
 	if (active == START){
 		printf("start\n");
+		PORTC = 0b00000001;
 	} else if (active == END){
 		printf("END\n");
+		PORTC = 0b00010000;
 	} else {
 		printf("state_%d", (active == STATE_1 ? 1 : (active == STATE_2 ? 2 : 3)));
+		PORTC = 1 << (active == STATE_1 ? 1 : (active == STATE_2 ? 2 : 3));
 	}
 }
 
@@ -77,7 +81,8 @@ ENUM_SWITCHES read_port(){
 int main(void)
 {
 	//Setup
-	DDRD = 0b00000000;			// All pins PORTD are set to input 
+	DDRD = 0b00000000;
+	DDRC = 0b00011111;					// All pins PORTD are set to input 
 	print_active();
 			
 	//Running
