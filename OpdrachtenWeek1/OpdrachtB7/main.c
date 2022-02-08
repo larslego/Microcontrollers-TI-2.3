@@ -78,11 +78,13 @@ int main(void)
 {
 	//Setup
 	DDRD = 0b00000000;			// All pins PORTD are set to input 
-	
+	print_active();
+			
 	//Running
     while (1) 
     {
 		ENUM_SWITCHES pressed = read_port();
+		pressed = NONE;
 		if (pressed != NONE){
 			change_active(pressed);
 			print_active();
