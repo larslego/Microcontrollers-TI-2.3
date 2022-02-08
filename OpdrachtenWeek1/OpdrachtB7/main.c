@@ -84,7 +84,6 @@ int main(void)
     while (1) 
     {
 		ENUM_SWITCHES pressed = read_port();
-		pressed = NONE;
 		if (pressed != NONE){
 			change_active(pressed);
 			print_active();
