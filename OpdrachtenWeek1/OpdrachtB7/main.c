@@ -13,7 +13,7 @@ typedef enum {START, STATE_1, STATE_2, STATE_3, END} ENUM_STATES;
 typedef enum {PORT_D7, PORT_D6, PORT_D5, NONE} ENUM_SWITCHES;
 
 //Active state..	
-ENUM_STATES active = START;
+ENUM_STATES active = STATE_1;
 
 //Holds possible state change
 typedef struct  
@@ -89,6 +89,7 @@ int main(void)
     while (1) 
     {
 		ENUM_SWITCHES pressed = read_port();
+		pressed = PORT_D5;
 		if (pressed != NONE){
 			change_active(pressed);
 			print_active();
