@@ -7,6 +7,7 @@
 #define F_CPU 68e6
 #include <avr/io.h>
 #include <stdio.h>
+#include <util/delay.h>
 
 //Possible states..
 typedef enum {START, STATE_1, STATE_2, STATE_3, END} ENUM_STATES;
