@@ -1,7 +1,7 @@
 /*
- * OpdrachtB1.c
+ * OpdrachtB2.c
  *
- * Created: 2/9/2022 10:37:13 AM
+ * Created: 2/9/2022 10:33:51 AM
  * Author : berke
  */ 
 
