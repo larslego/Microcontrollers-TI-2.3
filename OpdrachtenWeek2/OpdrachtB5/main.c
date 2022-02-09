@@ -10,7 +10,7 @@
 int main(void)
 {
 	init();
-	lcd_write_string("Joe Mama");
+	display_text("Joe Mama");
 	
     /* Replace with your application code */
     while (1) 
