@@ -5,14 +5,17 @@
  * Author : Larsl
  */ 
 
-#include <avr/io.h>
-
+#include "LCD/LCD.h"
 
 int main(void)
 {
+	init();
+	lcd_write_string("Joe Mama");
+	
     /* Replace with your application code */
     while (1) 
     {
+		_delay_ms(10);
     }
 }
 

@@ -7,11 +7,11 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OpdrachtB2", "OpdrachtB2\Op
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OpdrachtB1", "OpdrachtB1\OpdrachtB1.cproj", "{FE431E28-5EC2-46B9-B93D-CBE84376381C}"
 EndProject
-<<<<<<< HEAD
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OpdrachtB4", "OpdrachtB4\OpdrachtB4.cproj", "{92A52676-0067-4F54-AD05-6F0EDE1483A8}"
-=======
+EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OpdrachtB3", "OpdrachtB3\OpdrachtB3.cproj", "{068A045D-9C0A-4D0F-88EB-65BC55EB0E8B}"
->>>>>>> main
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OpdrachtB5", "OpdrachtB5\OpdrachtB5.cproj", "{67D9E0FC-D5B2-4B2B-B047-2910466D9160}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,17 +27,18 @@ Global
 		{FE431E28-5EC2-46B9-B93D-CBE84376381C}.Debug|AVR.Build.0 = Debug|AVR
 		{FE431E28-5EC2-46B9-B93D-CBE84376381C}.Release|AVR.ActiveCfg = Release|AVR
 		{FE431E28-5EC2-46B9-B93D-CBE84376381C}.Release|AVR.Build.0 = Release|AVR
-<<<<<<< HEAD
 		{92A52676-0067-4F54-AD05-6F0EDE1483A8}.Debug|AVR.ActiveCfg = Debug|AVR
 		{92A52676-0067-4F54-AD05-6F0EDE1483A8}.Debug|AVR.Build.0 = Debug|AVR
 		{92A52676-0067-4F54-AD05-6F0EDE1483A8}.Release|AVR.ActiveCfg = Release|AVR
 		{92A52676-0067-4F54-AD05-6F0EDE1483A8}.Release|AVR.Build.0 = Release|AVR
-=======
 		{068A045D-9C0A-4D0F-88EB-65BC55EB0E8B}.Debug|AVR.ActiveCfg = Debug|AVR
 		{068A045D-9C0A-4D0F-88EB-65BC55EB0E8B}.Debug|AVR.Build.0 = Debug|AVR
 		{068A045D-9C0A-4D0F-88EB-65BC55EB0E8B}.Release|AVR.ActiveCfg = Release|AVR
 		{068A045D-9C0A-4D0F-88EB-65BC55EB0E8B}.Release|AVR.Build.0 = Release|AVR
->>>>>>> main
+		{67D9E0FC-D5B2-4B2B-B047-2910466D9160}.Debug|AVR.ActiveCfg = Debug|AVR
+		{67D9E0FC-D5B2-4B2B-B047-2910466D9160}.Debug|AVR.Build.0 = Debug|AVR
+		{67D9E0FC-D5B2-4B2B-B047-2910466D9160}.Release|AVR.ActiveCfg = Release|AVR
+		{67D9E0FC-D5B2-4B2B-B047-2910466D9160}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
